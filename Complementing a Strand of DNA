@@ -1,0 +1,11 @@
+# string = 'AAAACCCGGT'
+# reverse = string[::-1]
+# s = ''
+# for i in range(len(string)):
+#     if reverse[i] == 'A': s += 'T'
+#     if reverse[i] == 'T': s += 'A'
+#     if reverse[i] == 'G': s += 'C'
+#     if reverse[i] == 'C': s += 'G'
+#     print(i)
+
+# print(s)
