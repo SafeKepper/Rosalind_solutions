@@ -1,0 +1,9 @@
+s = ''
+t = ''
+subLength= len(t)
+mainLength = len(s)
+
+for i in range(0,mainLength):
+    
+    if s[i:subLength + i] == t:
+        print(i+1)
