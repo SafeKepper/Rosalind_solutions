@@ -1,0 +1,48 @@
+import re
+
+
+# Not optimised , just a brute force i tried with fasta reading code from  --> https://coding4medicine.com/backup/Python/reading-fasta-files.html
+
+
+rawSeq = open('some.txt','r')
+rawSeq = rawSeq.readlines()
+
+patternId=re.compile('>(\S+)')
+patternSeq=re.compile('^(\S+)$')
+
+
+def makeDict(patternId,patternSeq,rawSeq):
+    seq = {}
+    for line in rawSeq:
+        outh = patternId.search(line)
+        if outh:
+                id=outh.group(1)
+        else:
+            outl=patternSeq.search(line)
+            if(id in seq.keys()):
+                seq[id] += outl.group(1)
+            else:
+                seq[id]  =outl.group(1)
+    return seq
+
+def gcFinder(seq):
+    gc_content = {}
+    for i in seq.keys():
+        gc_content[i] = 0
+    for sequence in seq.keys():
+        total_val = (len(seq[sequence]))
+        for char in seq[sequence]:
+            if char == 'G' or char == 'C':
+                gc_content[sequence] += 1
+        gc_content[sequence] = round((gc_content[sequence] / total_val) * 100, 6)
+    return gc_content
+
+def getMaxGC(gc):
+    result = max(zip(gc.values(),gc.keys()))
+    return result
+
+
+seq_list = makeDict(patternId,patternSeq,rawSeq)
+gc = gcFinder(seq_list)
+result = getMaxGC(gc)
+print(result[1],'\n',result[0])
